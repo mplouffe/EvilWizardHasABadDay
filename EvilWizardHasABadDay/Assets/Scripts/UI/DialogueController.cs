@@ -9,7 +9,7 @@ namespace lvl_0
     {
         private Duration m_dialogueDuration;
 
-        private DialogueControllerState m_currentState;
+        private DialogueControllerState m_currentState = DialogueControllerState.Deactivated;
 
         private Queue<DialogueLine> m_currentDialogueQueue;
 
@@ -63,7 +63,6 @@ namespace lvl_0
                     }
                     else
                     {
-
                         DisplayDialogue();
                     }
                     m_skipRequested = false;
@@ -88,6 +87,7 @@ namespace lvl_0
 
         private void CloseDialogWindow()
         {
+            EventBus<DialogueCompleteEvent>.Raise(new DialogueCompleteEvent());
             m_currentState = DialogueControllerState.Deactivated;
             m_dialogueWindow.Hide();
         }
