@@ -20,7 +20,7 @@ namespace lvl_0
         private Animator m_controller;
 
         private Duration m_duration;
-        private PeasantState m_state;
+        private PeasantState m_state = PeasantState.Waiting;
 
         protected void Start()
         {
@@ -29,7 +29,7 @@ namespace lvl_0
 
         protected void OnEnable()
         {
-            ChangeState(PeasantState.Waiting);
+            transform.position = new Vector3(m_startingXPos, transform.position.y, 0);
         }
 
         protected void Update()
@@ -63,10 +63,35 @@ namespace lvl_0
             }
         }
 
-        [ContextMenu("Cue Character")]
         public void CueCharacter()
         {
             ChangeState(PeasantState.Arriving);
+        }
+
+        public void Listening()
+        {
+            m_controller.SetTrigger("Idle");
+        }
+
+        public void Talking()
+        {
+            m_controller.SetTrigger("Talking");
+        }
+
+        public void Happy()
+        {
+            m_controller.SetTrigger("Happy");
+        }
+
+        public void Scared()
+        {
+            m_controller.SetTrigger("Recoiling");
+        }
+
+        public void LeavingHappy()
+        {
+            m_controller.SetTrigger("LeavingHappy");
+            ChangeState(PeasantState.Leaving);
         }
 
         private void ChangeState(PeasantState newState)
@@ -75,12 +100,14 @@ namespace lvl_0
             {
                 case PeasantState.Waiting:
                     transform.position = new Vector3(m_startingXPos, transform.position.y, 0);
+                    EventBus<ActionCompleteEvent>.Raise(new ActionCompleteEvent());
                     break;
                 case PeasantState.Arriving:
                     m_duration.Reset(m_walkOnTime);
                     break;
                 case PeasantState.Negotiating:
                     transform.position = new Vector3(m_talkingXPos, transform.position.y, 0);
+                    EventBus<ActionCompleteEvent>.Raise(new ActionCompleteEvent());
                     break;
                 case PeasantState.Leaving:
                     m_duration.Reset(m_walkOnTime / 2);
@@ -89,13 +116,13 @@ namespace lvl_0
 
             m_state = newState;
         }
-    }
 
-    public enum PeasantState
-    {
-        Waiting,
-        Arriving,
-        Negotiating,
-        Leaving,
+        private enum PeasantState
+        {
+            Waiting,
+            Arriving,
+            Negotiating,
+            Leaving,
+        }
     }
 }

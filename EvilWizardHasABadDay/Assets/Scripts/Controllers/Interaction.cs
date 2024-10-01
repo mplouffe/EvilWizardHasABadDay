@@ -8,9 +8,27 @@ namespace lvl_0
     [Serializable]   
     public struct Interaction
     {
-        public Peasant Interactor;
-        public List<List<DialogueLine>> Dialogues;
+        public Speaker Interactor;
+        public List<InteractionBeat> Beats;
+        public List<DialogueBeat> DialogueBeats;
         public List<KeyCode> QTEKeys;
         public float QTEDuration;
+    }
+
+    [Serializable]
+    public struct DialogueBeat
+    {
+        public List<DialogueLine> Dialgoue;
+    }
+
+    public enum InteractionBeat
+    {
+        Talking,
+        Casting,
+        ReactingToQTE,
+        Exiting,
+        Raging,
+        Continuing,
+        QTE
     }
 }

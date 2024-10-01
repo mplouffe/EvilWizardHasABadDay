@@ -296,6 +296,7 @@ RectTransform:
   - {fileID: 593480353}
   - {fileID: 1465685124}
   - {fileID: 1355282479}
+  - {fileID: 151788745}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -316,6 +317,91 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_dialogueWindow: {fileID: 593480352}
+--- !u!1 &151788743
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 151788745}
+  - component: {fileID: 151788746}
+  - component: {fileID: 151788744}
+  m_Layer: 5
+  m_Name: Outro
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &151788744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151788743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfcf517b6ed4f874a88c6259888c3768, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_onScreenDuration: 5
+  m_fadeDuration: 2
+  m_introCanvas: {fileID: 151788746}
+  m_outroText: {fileID: 1134747588}
+  m_outroWinText: 'What is wrong with the wizard?
+
+    Why are all his spells going
+    awry?
+
+    Will the wizard make it to the bank on time???
+
+
+    You''ll just
+    have to find out next time in:
+
+    Monsieur Wizard Has a Bad Day II: Monsieur
+    Wizard Takes Manhattan'
+  m_outroLooseText: 'Unable to perform the ritual in time,
+
+    Monsieur Wizard''s
+    spell backfired on him,
+
+    Causing a catastrophic explosion.'
+--- !u!224 &151788745
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151788743}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1818119059}
+  m_Father: {fileID: 42953842}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &151788746
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 151788743}
+  m_Enabled: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &326201900
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,6 +905,11 @@ MonoBehaviour:
   m_imageIconRectTransform: {fileID: 1933191415}
   m_textBoxBackgroundRectTransform: {fileID: 1328781550}
   m_dialogueTextField: {fileID: 642850062}
+  m_dialogueIconEntries:
+  - Character: 1
+    Icon: {fileID: 21300000, guid: 03b399b341341e14586cf97c55b30a49, type: 3}
+  - Character: 2
+    Icon: {fileID: 21300000, guid: 56247a96cce4ab04ea60b0fde52d4766, type: 3}
 --- !u!224 &593480353
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1212,10 +1303,130 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e93c8268bfeddf4296dd51351f1a6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_wizardController: {fileID: 0}
-  m_peasantEntries: []
-  m_interactions: []
-  m_timeBetweenPeasants: 0
+  m_wizardController: {fileID: 881809347}
+  m_peasantEntries:
+  - Peasant: 2
+    Controller: {fileID: 1394508149}
+  m_interactions:
+  - Interactor: 2
+    Beats: 00000000000000000000000000000000000000000000000000000000010000000600000002000000030000000400000005000000
+    DialogueBeats:
+    - Dialgoue:
+      - Speaker: 2
+        Text: Hello Monsieur Wizard!
+        Duration: 3
+        IsSpoken: 1
+      - Speaker: 2
+        Text: It's great that I ran into you.
+        Duration: 3
+        IsSpoken: 1
+      - Speaker: 2
+        Text: I have an important favour to ask you...
+        Duration: 3
+        IsSpoken: 1
+    - Dialgoue:
+      - Speaker: 1
+        Text: I'm sorry but I do not have the time.
+        Duration: 3
+        IsSpoken: 1
+      - Speaker: 1
+        Text: I'm in quite a hurry. I must get to the bank...
+        Duration: 3
+        IsSpoken: 1
+    - Dialgoue:
+      - Speaker: 2
+        Text: Oh, I'll be quick then.
+        Duration: 3
+        IsSpoken: 1
+      - Speaker: 2
+        Text: It all started when my great grandfather was a small child...
+        Duration: 4
+        IsSpoken: 1
+    - Dialgoue:
+      - Speaker: 1
+        Text: I do not have time for this...
+        Duration: 3
+        IsSpoken: 1
+    - Dialgoue:
+      - Speaker: 2
+        Text: ... he was raised on a small farm a days ride north of the city. He
+          lived a quite life...
+        Duration: 4
+        IsSpoken: 1
+    - Dialgoue:
+      - Speaker: 1
+        Text: I am warning you...
+        Duration: 3
+        IsSpoken: 0
+    - Dialgoue:
+      - Speaker: 2
+        Text: ... In the summer he would spend his days frolicing in the grassy fields
+          and playing in the woods near his home...
+        Duration: 4
+        IsSpoken: 1
+    - Dialgoue:
+      - Speaker: 1
+        Text: THAT'S IT!!!
+        Duration: 2
+        IsSpoken: 1
+      - Speaker: 1
+        Text: You have incurred my wrath!
+        Duration: 2
+        IsSpoken: 1
+      - Speaker: 1
+        Text: Prepare for the end.
+        Duration: 2
+        IsSpoken: 1
+      - Speaker: 1
+        Text: I cast...
+        Duration: 2
+        IsSpoken: 1
+      - Speaker: 1
+        Text: THE SPELL OF DEATH!!!
+        Duration: 2
+        IsSpoken: 1
+    - Dialgoue:
+      - Speaker: 2
+        Text: Wow! I feel great!
+        Duration: 3
+        IsSpoken: 1
+      - Speaker: 2
+        Text: I don't know what you did, but I feel amazing.
+        Duration: 3
+        IsSpoken: 1
+      - Speaker: 2
+        Text: Thank you so much!
+        Duration: 3
+        IsSpoken: 1
+      - Speaker: 2
+        Text: I'll be sure to tell everyone how helpful you are!!!
+        Duration: 3
+        IsSpoken: 1
+      - Speaker: 2
+        Text: Thank you Monsieur Wizard!!!
+        Duration: 3
+        IsSpoken: 1
+    - Dialgoue:
+      - Speaker: 1
+        Text: WHAT THE HELL WAS THAT???
+        Duration: 3
+        IsSpoken: 1
+      - Speaker: 1
+        Text: HE SHOULD BE DEAD!!!
+        Duration: 3
+        IsSpoken: 1
+      - Speaker: 1
+        Text: I must have missed a step in the spell somehow...
+        Duration: 3
+        IsSpoken: 1
+      - Speaker: 1
+        Text: GAH! How frustrating! I must get to the bank immediately!!!
+        Duration: 3
+        IsSpoken: 1
+    QTEKeys: 11010000140100001201000011010000
+    QTEDuration: 5
+  m_timeBetweenPeasants: 5
+  m_outroManager: {fileID: 151788744}
 --- !u!1 &799876669
 GameObject:
   m_ObjectHideFlags: 0
@@ -1261,6 +1472,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 881809346}
+  - component: {fileID: 881809347}
   m_Layer: 0
   m_Name: Wizard
   m_TagString: Untagged
@@ -1284,6 +1496,20 @@ Transform:
   - {fileID: 1151406321}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &881809347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881809345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a941ef23db37224db9314283c1819c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_controller: {fileID: 1151406322}
+  m_explosionDuration: 3
 --- !u!1 &1006865094
 GameObject:
   m_ObjectHideFlags: 0
@@ -1359,52 +1585,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1006865094}
   m_CullTransparentMesh: 1
---- !u!1 &1046400983
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1046400984}
-  - component: {fileID: 1046400985}
-  m_Layer: 0
-  m_Name: GameSystemsTester
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1046400984
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1046400983}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1046400985
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1046400983}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 911474246b5de9d4d8f2f3e934082fba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_firstSpeaker: {fileID: 21300000, guid: 56247a96cce4ab04ea60b0fde52d4766, type: 3}
-  m_secondSpeaker: {fileID: 21300000, guid: 03b399b341341e14586cf97c55b30a49, type: 3}
 --- !u!1 &1101508800
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,6 +1660,147 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1101508800}
   m_CullTransparentMesh: 1
+--- !u!1 &1134747587
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1134747590}
+  - component: {fileID: 1134747589}
+  - component: {fileID: 1134747588}
+  m_Layer: 5
+  m_Name: OutroText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1134747588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134747587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 'Once upon a time...
+
+    There lived a powerful Wizard...
+
+    Who was
+    in a hurry...
+
+    To get to the bank before it closed a 5...'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 36
+  m_fontSizeBase: 36
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 30
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1134747589
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134747587}
+  m_CullTransparentMesh: 1
+--- !u!224 &1134747590
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134747587}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1818119059}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 100, y: 87}
+  m_SizeDelta: {x: 1180, y: 192.5}
+  m_Pivot: {x: 0, y: 1}
 --- !u!1 &1151406320
 GameObject:
   m_ObjectHideFlags: 0
@@ -1574,7 +1895,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 172ac6b0731f08a4791d6992c4f044ca, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -2083,7 +2404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c1866b98879dd14b984265b1635af5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_onScreenDuration: 5
+  m_onScreenDuration: 3
   m_fadeDuration: 2
   m_introCanvas: {fileID: 1355282481}
 --- !u!225 &1355282481
@@ -2495,7 +2816,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_startingXPos: 10
   m_talkingXPos: 3
-  m_walkOnTime: 3.5
+  m_walkOnTime: 2
   m_controller: {fileID: 350036210}
 --- !u!1 &1465685123
 GameObject:
@@ -2825,6 +3146,82 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1770498589}
   m_CullTransparentMesh: 1
+--- !u!1 &1818119058
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1818119059}
+  - component: {fileID: 1818119061}
+  - component: {fileID: 1818119060}
+  m_Layer: 5
+  m_Name: Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1818119059
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818119058}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1134747590}
+  m_Father: {fileID: 151788745}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1818119060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818119058}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1818119061
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818119058}
+  m_CullTransparentMesh: 1
 --- !u!1 &1933191414
 GameObject:
   m_ObjectHideFlags: 0
@@ -2920,7 +3317,6 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 619394802}
   - {fileID: 42953842}
-  - {fileID: 1046400984}
   - {fileID: 881809346}
   - {fileID: 1394508148}
   - {fileID: 782674483}

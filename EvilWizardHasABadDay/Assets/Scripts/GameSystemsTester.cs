@@ -53,7 +53,7 @@ namespace lvl_0
                     IsSpoken = true
                 }
             };
-            DialogueController.Instance.StartDialogue(dialogue, m_firstSpeaker, true);
+            DialogueController.Instance.StartDialogue(dialogue);
         }
 
         public void OnEvent(DialogueCompleteEvent e)
@@ -87,7 +87,7 @@ namespace lvl_0
                 };
 
                 test = 1;
-                DialogueController.Instance.StartDialogue(dialogue, m_secondSpeaker, false);
+                DialogueController.Instance.StartDialogue(dialogue);
             }
             else if (test == 1)
             {
@@ -128,7 +128,7 @@ namespace lvl_0
                         IsSpoken = true
                     },
                 };
-                DialogueController.Instance.StartDialogue(dialogue, m_secondSpeaker, false);
+                DialogueController.Instance.StartDialogue(dialogue);
             }
             else
             {
@@ -150,7 +150,7 @@ namespace lvl_0
                     },
                 };
                 test = 2;
-                DialogueController.Instance.StartDialogue(dialogue, m_secondSpeaker, false);
+                DialogueController.Instance.StartDialogue(dialogue);
             }
         }
     }

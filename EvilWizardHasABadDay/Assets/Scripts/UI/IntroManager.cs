@@ -36,6 +36,7 @@ namespace lvl_0
                 }
                 else
                 {
+                    GameController.Instance.IntroComplete();
                     Destroy(gameObject);
                 }
             }

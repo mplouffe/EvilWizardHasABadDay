@@ -6,7 +6,10 @@ using Random = UnityEngine.Random;
 
 namespace lvl_0
 {
-    public class GameController : SingletonBase<GameController>, IEventReceiver<DialogueCompleteEvent>
+    public class GameController : SingletonBase<GameController>,
+        IEventReceiver<DialogueCompleteEvent>, 
+        IEventReceiver<ActionCompleteEvent>,
+        IEventReceiver<QTEEvent>
     {
         [SerializeField]
         private WizardController m_wizardController;
@@ -20,7 +23,10 @@ namespace lvl_0
         [SerializeField]
         private float m_timeBetweenPeasants;
 
-        private Dictionary<Peasant, PeasantController> m_peasantDictionary;
+        [SerializeField]
+        private OutroManager m_outroManager;
+
+        private Dictionary<Speaker, PeasantController> m_peasantDictionary;
 
         private Duration m_duration;
 
@@ -28,11 +34,28 @@ namespace lvl_0
 
         private Interaction m_currentInteraction;
 
-        private
-
         protected void Start()
         {
             m_duration = new Duration(m_timeBetweenPeasants);
+            m_peasantDictionary = new Dictionary<Speaker, PeasantController>();
+            foreach(var entry in m_peasantEntries)
+            {
+                m_peasantDictionary.Add(entry.Peasant, entry.Controller);
+            }
+        }
+
+        protected void OnEnable()
+        {
+            EventBus<DialogueCompleteEvent>.Register(this);
+            EventBus<ActionCompleteEvent>.Register(this);
+            EventBus<QTEEvent>.Register(this);
+        }
+
+        protected void OnDisable()
+        {
+            EventBus<DialogueCompleteEvent>.Unregister(this);
+            EventBus<ActionCompleteEvent>.Unregister(this);
+            EventBus<QTEEvent>.Unregister(this);
         }
 
         protected void Update()
@@ -72,20 +95,99 @@ namespace lvl_0
                 case GameControllerState.ActivatingInteraction:
                     var interactionIndex = Random.Range(0, m_interactions.Count);
                     m_currentInteraction = m_interactions[interactionIndex];
-                    m_interactions.RemoveAt(interactionIndex);
+                    var currentPeasant = m_peasantDictionary[m_currentInteraction.Interactor];
+                    currentPeasant.CueCharacter();
+                    m_state = GameControllerState.WaitingForNextEvent;
+                    break;
+                case GameControllerState.GameOver:
+                    m_outroManager.WinnerWinner();
                     break;
             }
         }
 
         public void OnEvent(DialogueCompleteEvent e)
         {
-            throw new NotImplementedException();
+            BeatGoesOn();
         }
-    }
 
-    public enum Peasant
-    {
-        Farmer
+        public void OnEvent(ActionCompleteEvent e)
+        {
+            BeatGoesOn();
+        }
+
+        public void OnEvent(QTEEvent e)
+        {
+            if (e.Failed)
+            {
+                EndOfTheWorldAsWeKnowIt();
+            }
+            else
+            {
+                BeatGoesOn();
+            }
+        }
+
+        private void BeatGoesOn()
+        {
+            var currentBeat = m_currentInteraction.Beats[0];
+            m_currentInteraction.Beats.RemoveAt(0);
+
+            switch (currentBeat)
+            {
+                case InteractionBeat.Talking:
+                    var currentDialogue = m_currentInteraction.DialogueBeats[0];
+                    m_currentInteraction.DialogueBeats.RemoveAt(0);
+                    if (currentDialogue.Dialgoue[0].Speaker == Speaker.Wizard)
+                    {
+                        m_wizardController.Talking();
+                        m_peasantDictionary[m_currentInteraction.Interactor].Listening();
+                    }
+                    else
+                    {
+                        m_wizardController.Listening();
+                        m_peasantDictionary[m_currentInteraction.Interactor].Talking();
+                    }
+                    DialogueController.Instance.StartDialogue(currentDialogue.Dialgoue);
+                    break;
+                case InteractionBeat.Casting:
+                    var casting = m_currentInteraction.DialogueBeats[0];
+                    m_currentInteraction.DialogueBeats.RemoveAt(0);
+                    m_wizardController.Casting();
+                    m_peasantDictionary[m_currentInteraction.Interactor].Scared();
+                    DialogueController.Instance.StartDialogue(casting.Dialgoue);
+                    break;
+                case InteractionBeat.QTE:
+                    QuicktimeEventManager.Instance.StartQTE(m_currentInteraction.QTEDuration, m_currentInteraction.QTEKeys);
+                    break;
+                case InteractionBeat.ReactingToQTE:
+                    m_wizardController.Dumbfounded();
+                    m_peasantDictionary[m_currentInteraction.Interactor].Happy();
+                    var reacting = m_currentInteraction.DialogueBeats[0];
+                    m_currentInteraction.DialogueBeats.RemoveAt(0);
+                    DialogueController.Instance.StartDialogue(reacting.Dialgoue);
+                    break;
+                case InteractionBeat.Exiting:
+                    m_peasantDictionary[m_currentInteraction.Interactor].LeavingHappy();
+                    break;
+                case InteractionBeat.Raging:
+                    m_wizardController.Raging();
+                    var raging = m_currentInteraction.DialogueBeats[0];
+                    m_currentInteraction.DialogueBeats.RemoveAt(0);
+                    DialogueController.Instance.StartDialogue(raging.Dialgoue);
+                    break;
+                case InteractionBeat.Continuing:
+                    m_wizardController.Walking();
+                    m_interactions.Remove(m_currentInteraction);
+                    SwitchState(GameControllerState.BetweenPeasants);
+                    break;
+
+            }
+        }
+
+        private void EndOfTheWorldAsWeKnowIt()
+        {
+            m_wizardController.Asplode();
+        }
     }
 
     public enum GameControllerState
@@ -100,7 +202,10 @@ namespace lvl_0
     [Serializable]
     public struct PeasantEntry
     {
-        public Peasant Peasant;
+        public Speaker Peasant;
         public PeasantController Controller;
     }
+
+    public struct ActionCompleteEvent : IEvent
+    { }
 }

@@ -1,11 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.InputSystem.InputAction;
 
 namespace lvl_0
 {
+    public enum Speaker
+    {
+        None,
+        Wizard,
+        Other
+    }
+
     public class DialogueWindow : MonoBehaviour
     {
         [SerializeField]
@@ -18,31 +27,32 @@ namespace lvl_0
         private RectTransform m_imageIconRectTransform;
 
         [SerializeField]
-        private RectTransform m_textBoxBackgroundRectTransform;
+        private TextMeshProUGUI m_dialogueTextField;
 
         [SerializeField]
-        private TextMeshProUGUI m_dialogueTextField;
+        private HeadshotCatalogue m_dialogueIcons;
 
         private Speaker m_currentSpeaker;
         private bool m_iconIsHidden;
 
+        private InputActions m_inputActions;
+
         protected void OnEnable()
         {
+            m_inputActions = new InputActions();
             Hide();
         }
 
-        public void Saying(Speaker speaker, string newText, Sprite icon)
+        protected void OnDisable()
         {
-            UpdateSpeaker(speaker, icon);
-            m_dialogueTextField.fontStyle = FontStyles.Normal;
-            m_dialogueTextField.text = newText;
+            m_inputActions.Dialogue.Confirm.performed += OnConfirmPressed;
         }
 
-        public void Thinking(Speaker speaker, string newText, Sprite icon)
+        public void DisplayDialogue(DialogueLine line)
         {
-            UpdateSpeaker(speaker, icon);
-            m_dialogueTextField.fontStyle = FontStyles.Italic;
-            m_dialogueTextField.text = newText;
+            UpdateSpeaker(line.Speaker);
+            m_dialogueTextField.fontStyle = line.IsSpoken ? FontStyles.Normal : FontStyles.Italic;
+            m_dialogueTextField.text = line.Text;
         }
 
         public void Hide()
@@ -50,12 +60,24 @@ namespace lvl_0
             m_dialogueTextField.text = string.Empty;
             m_canvasGroup.alpha = 0;
             m_iconIsHidden = true;
+            m_inputActions.Dialogue.Disable();
         }
 
         public void Show()
         {
             m_canvasGroup.alpha = 1;
             m_iconIsHidden = false;
+            m_inputActions.Dialogue.Enable();
+        }
+
+        private void OnConfirmPressed(CallbackContext context)
+        {
+            AdvanceDialogue();
+        }
+
+        private void AdvanceDialogue()
+        {
+            EventBus<DialogueAdvanceEvent>.Raise(new DialogueAdvanceEvent());
         }
 
         private void PositionIcon(bool onLeft)
@@ -72,11 +94,11 @@ namespace lvl_0
             }
         }
 
-        private void UpdateSpeaker(Speaker speaker, Sprite icon)
+        private void UpdateSpeaker(Speaker speaker)
         {
             if (m_currentSpeaker != speaker)
             {
-                m_imageIcon.sprite = icon;
+                m_imageIcon.sprite = m_dialogueIcons.GetActorIcon(speaker);
                 PositionIcon(speaker == Speaker.Wizard);
                 m_currentSpeaker = speaker;
             }
@@ -88,10 +110,7 @@ namespace lvl_0
         }
     }
 
-    public enum Speaker
-    {
-        None,
-        Wizard,
-        Other
-    }
+
+
+
 }
