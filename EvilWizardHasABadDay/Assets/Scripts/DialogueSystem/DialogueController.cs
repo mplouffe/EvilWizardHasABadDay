@@ -60,14 +60,7 @@ namespace lvl_0
         {
             var nextLine = m_currentDialogueQueue.Dequeue();
 
-            if (nextLine.IsSpoken)
-            {
-                m_dialogueWindow.Saying(nextLine.Speaker, nextLine.Text);
-            }
-            else
-            {
-                m_dialogueWindow.Thinking(nextLine.Speaker, nextLine.Text);
-            }
+            m_dialogueWindow.DisplayDialogue(nextLine);
             m_dialogueDuration.Reset(nextLine.Duration);
         }
 
